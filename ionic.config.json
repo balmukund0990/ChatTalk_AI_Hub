@@ -1,0 +1,7 @@
+{
+  "name": "ChatTalk_AI_Hub",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
