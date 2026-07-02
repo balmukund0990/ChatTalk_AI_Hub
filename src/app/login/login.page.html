@@ -1,0 +1,31 @@
+<ion-content class="login-container">
+  <div class="login-box">
+    <h2>AI Chat Login</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        Please enter a valid email.
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        Password must be at least 6 characters.
+      </ion-note>
+
+      <ion-button expand="block" type="submit" [disabled]="loginForm.invalid">
+        Login
+      </ion-button>
+    </form>
+
+    <p class="signup-text">
+      Don’t have an account? <a routerLink="/signup">Sign up</a>
+    </p>
+  </div>
+</ion-content>

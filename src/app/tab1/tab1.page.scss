@@ -1,0 +1,43 @@
+.ChatBoxTitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  height: 40px;
+}
+
+.ChatBoxTitle .titleOne {
+  font-size: 21px;
+  padding: 5px;
+}
+
+.ChatBoxTitle .titleTwo {
+  font-size: 30px;
+  padding: 1px;
+  color: #1DAA61;
+}
+
+.chatBoxAIContainer {
+  position: relative;
+}
+
+.searchChatList .sc-ion-searchbar-md-h {
+  position: relative;
+  --border-radius: 40px;
+  --box-shadow: inset 0px 0px 5px #ccc;
+}
+
+.chatAddList {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  margin: 5px;
+  font-size: 25px;
+  background: #1DAA61;
+  border-radius: 50%;
+  color: #fff;
+  padding: 15px;
+  width: 15%;
+  height: 8%;
+  text-align: center;
+}
