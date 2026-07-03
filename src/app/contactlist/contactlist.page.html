@@ -8,9 +8,26 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">contactlist</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    <!-- Loop through the fetched contact list -->
+    <ion-item *ngFor="let contact of contactList">
+      <ion-label>
+        <h2>{{ contact.name?.display || 'Unknown Contact' }}</h2>
+        <!-- Display the first available phone number -->
+        <p *ngIf="contact.phones && contact.phones.length > 0">
+          Phone {{ contact.phones[0].number }}
+        </p>
+        <!-- Display the first available email address -->
+        <p *ngIf="contact.emails && contact.emails.length > 0">
+          Contact {{ contact.emails[0].address }}
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Fallback state if no contacts are available -->
+  <div *ngIf="contactList.length === 0" class="ion-text-center ion-padding">
+    <p>No contacts found or permission not granted.</p>
+  </div>
+
 </ion-content>

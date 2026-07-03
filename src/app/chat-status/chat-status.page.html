@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>chatStatus</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="whatsapp-bg">
+  <!-- My Status Section -->
+  <ion-item lines="none" class="status-item profile-status">
+    <div class="avatar-wrapper">
+      <ion-avatar>
+        <img src="../../assets/icon/avatarIcon.png" alt="Profile" />
+      </ion-avatar>
+      <div class="add-icon-badge">
+        <ion-icon name="addCircle"></ion-icon>
+      </div>
+    </div>
+    <ion-label>
+      <h2>My status</h2>
+      <p>Tap to add status update</p>
+    </ion-label>
+  </ion-item>
+
+  <!-- Section Divider Header -->
+  <div class="section-header">Recent updates</div>
+
+  <!-- Recent Status List -->
+  <ion-list lines="none" class="status-list">
+    <ion-item class="status-item" *ngFor="let status of recentStatuses">
+      <!-- Custom variables --total-segments and --read-segments control the ring splits -->
+      <div class="avatar-wrapper ring-indicator" [style.--total-segments]="status.totalUpdates"
+        [style.--read-segments]="status.readUpdates">
+        <ion-avatar>
+          <img [src]="status.avatar" [alt]="status.name" />
+        </ion-avatar>
+      </div>
+      <ion-label>
+        <h2>{{ status.name }}</h2>
+        <p>{{ status.time }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,106 @@
+// WhatsApp Brand Palette Custom Colors
+.whatsapp-bg {
+  --background: #ffffff;
+}
+
+ion-toolbar {
+  --background: #008069; // WhatsApp Classic Teal
+  --color: #ffffff;
+}
+
+.section-header {
+  padding: 16px 16px 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #667781;
+  text-transform: capitalize;
+}
+
+.status-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+  margin-bottom: 4px;
+
+  ion-label {
+    margin-left: 16px;
+    h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111b21;
+      margin-bottom: 4px;
+    }
+    p {
+      font-size: 14px;
+      color: #667781;
+    }
+  }
+}
+
+// Avatar Container Layout
+.avatar-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+
+  ion-avatar {
+    width: 48px;
+    height: 48px;
+    z-index: 2;
+    background: #ffffff;
+    padding: 2px; // Creates space inside the ring
+  }
+}
+
+// "My Status" Plus Icon Overlay
+.profile-status {
+  .add-icon-badge {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    z-index: 3;
+    background: #ffffff;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+      font-size: 24px;
+      color: #00a884; // Light green accent
+    }
+  }
+}
+
+// Intelligent Segmented Border System
+.ring-indicator::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  z-index: 1;
+
+  // Calculate gaps dynamically based on updates
+  $gap: 3deg; 
+  $num-segments: var(--total-segments);
+  $read: var(--read-segments);
+  
+  // Creates a crisp alternating dash array using gradients
+  background: conic-gradient(
+    from 0deg,
+    #00a884 calc(360deg / $num-segments - $gap),
+    transparent calc(360deg / $num-segments - $gap) calc(360deg / $num-segments)
+  );
+  
+  // Fallback styling for a single solid update circle
+  background-repeat: repeat;
+}

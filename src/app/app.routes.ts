@@ -13,4 +13,8 @@ export const routes: Routes = [
     path: 'contactlist',
     loadComponent: () => import('./contactlist/contactlist.page').then( m => m.ContactlistPage)
   },
+  {
+    path: 'chat-status',
+    loadComponent: () => import('./chat-status/chat-status.page').then( m => m.ChatStatusPage)
+  },
 ];
