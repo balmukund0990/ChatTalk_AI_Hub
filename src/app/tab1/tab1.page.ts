@@ -5,6 +5,7 @@ import { addIcons } from 'ionicons';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Camera } from '@capacitor/camera';
+import { Database } from '../services/database';
 
 interface Item {
   id: number,
@@ -21,6 +22,7 @@ interface Item {
 export class Tab1Page implements OnInit {
   searchQuery = '';
   imageElement: any;
+
   public items: Item[] = [
     { id: 1, name: 'Apple', category: 'Fruit' },
     { id: 2, name: 'Banana', category: 'Fruit' },
@@ -29,11 +31,12 @@ export class Tab1Page implements OnInit {
   ];
   public filteredItems: Item[] = [];
 
-  constructor(public router: Router) {
+  constructor(public router: Router, public dbService: Database) {
     addIcons({ camera, chatbox });
   }
   ngOnInit(): void {
     this.filteredItems = [...this.items];
+   
   }
 
   handleSearch(event: any) {

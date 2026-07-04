@@ -26,7 +26,7 @@
   </ion-list>
 
   <!-- Fallback state if no contacts are available -->
-  <div *ngIf="contactList.length === 0" class="ion-text-center ion-padding">
+  <div *ngIf="contactList.length === 0" class="ion-text-center ion-padding" (click)="getCurrentLData($event)">
     <p>No contacts found or permission not granted.</p>
   </div>
 
