@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { IonList, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton } from '@ionic/angular/standalone';
 import { Contacts } from '@capacitor-community/contacts';
 import { Database } from '../services/database';
-import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-contactlist',
@@ -16,13 +15,12 @@ import { AlertController } from '@ionic/angular';
 export class ContactlistPage implements OnInit {
   contactList: any[] = [];
   users: any[] = [];
-  submittedValue: string = '';
+  submittedValue = {};
 
-  constructor(public dbService: Database, private alertController: AlertController) { }
+  constructor(public dbService: Database) { }
 
   async ngOnInit() {
     await this.loadContacts();
-    await this.addUser();
   }
 
   async loadContacts() {
@@ -49,44 +47,18 @@ export class ContactlistPage implements OnInit {
       console.error('Error fetching contacts:', error);
     }
   }
-  async getCurrentLData(event:any) {
-    const alert = await this.alertController.create({
-      header: 'Enter Information',
-      inputs: [
-        {
-          name: 'userInput',
-          type: 'text',
-          label:'Name',
-          placeholder: 'Type something here...',
-        },
-        {
-          name: 'userInput',
-          type: 'text',
-          placeholder: 'Type something here...',
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-        },
-        {
-          text: 'OK',
-          handler: (data) => {
-            // "data.userInput" matches the "name" property in the inputs array
-            this.submittedValue = data.userInput;
-          },
-        },
-      ],
-    });
-
-    await alert.present();
+  async getCurrentLData(contact: any) {
+    this.submittedValue = {
+      name: contact.name.display,
+      category: contact.phones[0].number
+    };
+    this.addUser(this.submittedValue);
   }
 
-  async addUser() {
+  async addUser(data: any) {
     console.log('Loading added user contact');
-    const sql = `INSERT INTO users (name, email) VALUES (?, ?);`;
-    await this.dbService.executeQuery(sql, ['John Doe', 'john@example.com']);
+    const sql = `INSERT INTO users (name, category) VALUES (?, ?);`;
+    await this.dbService.executeQuery(sql, [data.name, data.category]);
     await this.loadUsers(); // Refresh UI array
   }
 

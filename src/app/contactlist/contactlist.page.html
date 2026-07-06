@@ -10,7 +10,8 @@
 <ion-content [fullscreen]="true">
   <ion-list>
     <!-- Loop through the fetched contact list -->
-    <ion-item *ngFor="let contact of contactList">
+    @for(contact of contactList; track contact.id){
+    <ion-item (click)="getCurrentLData(contact)">
       <ion-label>
         <h2>{{ contact.name?.display || 'Unknown Contact' }}</h2>
         <!-- Display the first available phone number -->
@@ -23,10 +24,19 @@
         </p>
       </ion-label>
     </ion-item>
+    } 
+    <!-- @empty {
+    <ion-item lines="none">
+      <ion-label class="ion-text-center ion-padding">
+        <p>No results found matching your search.</p>
+      </ion-label>
+    </ion-item>
+    } -->
+
   </ion-list>
 
   <!-- Fallback state if no contacts are available -->
-  <div *ngIf="contactList.length === 0" class="ion-text-center ion-padding" (click)="getCurrentLData($event)">
+  <div *ngIf="contactList.length === 0" class="ion-text-center ion-padding">
     <p>No contacts found or permission not granted.</p>
   </div>
 

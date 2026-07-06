@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonList,  IonItem, IonLabel, IonAvatar, IonNote, IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton } from '@ionic/angular/standalone';
+import { IonList,  IonItem, IonLabel, IonAvatar, IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { addCircle } from 'ionicons/icons';
 
@@ -10,7 +10,7 @@ import { addCircle } from 'ionicons/icons';
   templateUrl: './chat-status.page.html',
   styleUrls: ['./chat-status.page.scss'],
   standalone: true,
-  imports: [IonList,  IonItem, IonLabel, IonAvatar, IonNote, IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButtons, IonBackButton]
+  imports: [IonList,  IonItem, IonLabel, IonAvatar, IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButtons, IonBackButton]
 })
 export class ChatStatusPage implements OnInit {
   public recentStatuses = [

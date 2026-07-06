@@ -16,11 +16,16 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevronDown" pullingText="Pull down to load history."
+      refreshingSpinner="circles" refreshingText="Fetching older messages...">
+    </ion-refresher-content>
+  </ion-refresher>
   <div class="chatBoxAIContainer">
     <div class="chatListData">
       <ion-list lines="inset">
         @for(item of filteredItems; track item.id){
-        <ion-item button detail="false">
+        <ion-item button detail="false" (click)="getSeptChatData(item)">
           <ion-avatar slot="start">
             <img src="/assets/icon/avatarIcon1.png" />
           </ion-avatar>

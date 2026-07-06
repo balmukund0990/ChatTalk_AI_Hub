@@ -1,0 +1,80 @@
+.chat-container {
+    --background: #f5f6fa;
+}
+
+.message-wrapper {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 16px;
+    width: 100%;
+
+    // Styling layout for incoming entries
+    &.received {
+        justify-content: flex-start;
+
+        .message-bubble {
+            background: var(--ion-color-white, #ffffff);
+            color: var(--ion-color-dark, #222428);
+            border-radius: 16px 16px 16px 4px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+        }
+
+        .message-time {
+            text-align: left;
+        }
+    }
+
+    // Styling layout for sent entries
+    &.sent {
+        justify-content: flex-end;
+
+        .message-bubble {
+            background: var(--ion-color-primary, #3880ff);
+            color: #ffffff;
+            border-radius: 16px 16px 4px 16px;
+        }
+
+        .message-time {
+            text-align: right;
+        }
+    }
+}
+
+.chat-avatar {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+    margin-bottom: 18px; // Offset upwards to match timestamp text space
+}
+
+.message-bubble-container {
+    max-width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-bubble {
+    padding: 12px 16px;
+    font-size: 15px;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.message-time {
+    font-size: 11px;
+    color: var(--ion-color-medium, #92949c);
+    margin-top: 4px;
+    padding: 0 4px;
+}
+
+// Custom input box styles
+.chat-input {
+    background: #ffffff;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    margin: 4px 0;
+    border-radius: 40px;
+    box-shadow: inset 0px 0px 15px #ccc;
+}

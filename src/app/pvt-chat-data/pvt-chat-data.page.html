@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>PvtChatData</ion-title>
+    <ion-buttons slot="end">
+      <ion-button><ion-icon name="videocam"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Loop through message list dynamically -->
+  <div *ngFor="let msg of messages" [ngClass]="['message-wrapper', msg.sender]">
+
+    <!-- Render profile avatar only for structural received entries -->
+    <ion-avatar class="chat-avatar" *ngIf="msg.sender === 'received'">
+      <img src="../../assets/icon/avatarIcon2.png" alt="Avatar" />
+    </ion-avatar>
+
+    <div class="message-bubble-container">
+      <div class="message-bubble">
+        {{ msg.text }}
+      </div>
+      <span class="message-time">{{ msg.time }}</span>
+    </div>
+
+  </div>
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button color="medium">
+        <ion-icon name="pin"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-textarea class="chat-input" placeholder="Type a message..." [autoGrow]="true" rows="1"
+      [(ngModel)]="newMessageText" (keyup.enter)="sendMessage()"></ion-textarea>
+
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="sendMessage()">
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

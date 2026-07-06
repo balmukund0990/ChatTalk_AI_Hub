@@ -17,4 +17,8 @@ export const routes: Routes = [
     path: 'chat-status',
     loadComponent: () => import('./chat-status/chat-status.page').then( m => m.ChatStatusPage)
   },
+  {
+    path: 'pvt-chat-data',
+    loadComponent: () => import('./pvt-chat-data/pvt-chat-data.page').then( m => m.PvtChatDataPage)
+  },
 ];

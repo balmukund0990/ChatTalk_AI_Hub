@@ -31,7 +31,7 @@ export class Database {
       CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        email TEXT UNIQUE NOT NULL
+        category TEXT UNIQUE NOT NULL
       );
     `;
     await this.dbInstance.execute(schema);

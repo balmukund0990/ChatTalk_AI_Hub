@@ -8,8 +8,11 @@ import { AppComponent } from './app/app.component';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideZoneChangeDetection(),{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    provideIonicAngular(),
+    provideZoneChangeDetection(), { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideIonicAngular({
+      scrollPadding: true,
+      scrollAssist: true
+    }),
     provideRouter(routes, withPreloading(PreloadAllModules)),
   ],
 });

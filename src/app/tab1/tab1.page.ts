@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonIcon, IonContent, IonSearchbar, IonItem, IonLabel, IonList, IonAvatar, IonNote } from '@ionic/angular/standalone';
-import { camera, chatbox } from 'ionicons/icons';
+import { IonHeader, IonToolbar, IonTitle, IonIcon, IonContent, IonSearchbar, IonItem, IonLabel, IonList, IonAvatar, IonNote, IonRefresher, IonRefresherContent } from '@ionic/angular/standalone';
+import { camera, chatbox, chevronDown } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -17,37 +17,66 @@ interface Item {
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, CommonModule, IonSearchbar, IonItem, IonLabel, IonList, IonAvatar, IonNote]
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, CommonModule, IonSearchbar, IonItem, IonLabel, IonList, IonAvatar, IonNote, IonRefresher, IonRefresherContent]
 })
 export class Tab1Page implements OnInit {
   searchQuery = '';
   imageElement: any;
-
-  public items: Item[] = [
-    { id: 1, name: 'Apple', category: 'Fruit' },
-    { id: 2, name: 'Banana', category: 'Fruit' },
-    { id: 3, name: 'Carrot', category: 'Vegetable' },
-    { id: 4, name: 'Donut', category: 'Pastry' }
+  users: Item[] = [
+    { id: 1, name: 'chat user name', category: '+91 0000000000' }
   ];
+
+  // public items: Item[] = [
+  //   { id: 1, name: 'Apple', category: 'Fruit' },
+  //   { id: 2, name: 'Banana', category: 'Fruit' },
+  //   { id: 3, name: 'Carrot', category: 'Vegetable' },
+  //   { id: 4, name: 'Donut', category: 'Pastry' }
+  // ];
   public filteredItems: Item[] = [];
 
   constructor(public router: Router, public dbService: Database) {
-    addIcons({ camera, chatbox });
+    addIcons({ camera, chatbox, chevronDown});
   }
   ngOnInit(): void {
-    this.filteredItems = [...this.items];
-   
+    this.filteredItems = [...this.users];
+    this.loadUserListDB();
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter');
+    this.loadUserListDB();
+  }
+
+  async handleRefresh(event: any) {
+    console.log('User pulled down to refresh');
+
+    try {
+      // Simulating a backend API call delay (e.g., 2 seconds)
+      await this.loadUserListDB();
+    } catch (error) {
+      console.error('Failed loading history data', error);
+    } finally {
+      // CRITICAL: Tells the refresher animation component to complete and close!
+      event.target.complete();
+    }
+  }
+
+  async loadUserListDB() {
+    console.log('loading DB Data..');
+    const sql = `SELECT * FROM users;`;
+    this.users = await this.dbService.selectQuery(sql);
+    console.log('Load user data--- ', this.users);
+    this.filteredItems = [...this.users];
   }
 
   handleSearch(event: any) {
     console.log('Search query:', event);
     const query = event.target.value?.toLowerCase() || '';
-    // If query is empty, show everything
     if (!query.trim()) {
-      this.filteredItems = [...this.items];
+      this.filteredItems = [...this.users];
       return;
     }
-    this.filteredItems = this.items.filter(item => {
+    this.filteredItems = this.users.filter(item => {
       return item.name.toLowerCase().includes(query) ||
         item.category.toLowerCase().includes(query);
     });
@@ -65,6 +94,12 @@ export class Tab1Page implements OnInit {
     } catch (e) {
       console.error(e);
     }
+  }
+
+  getSeptChatData(chatData: any) {
+    console.log('Seprate chat data entry..');
+    this.router.navigate(['/pvt-chat-data'])
+
   }
 
   goToContactList() {
