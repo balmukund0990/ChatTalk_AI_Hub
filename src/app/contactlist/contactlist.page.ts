@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonList, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton } from '@ionic/angular/standalone';
 import { Contacts } from '@capacitor-community/contacts';
 import { Database } from '../services/database';
+import { Subscription } from 'rxjs';
+import { DataService } from '../services/data-service';
 
 @Component({
   selector: 'app-contactlist',

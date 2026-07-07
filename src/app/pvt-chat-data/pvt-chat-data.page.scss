@@ -2,6 +2,12 @@
     --background: #f5f6fa;
 }
 
+.userChatTitle {
+    position: relative;
+    text-align: center;
+    left: -10px;
+}
+
 .message-wrapper {
     display: flex;
     align-items: flex-end;
@@ -38,6 +44,13 @@
             text-align: right;
         }
     }
+}
+
+.videoCamIcon {
+    border-radius: 30px;
+    box-shadow: inset 0px 0px 6px #e5dbdb;
+    width: 40px;
+    height: 40px;
 }
 
 .chat-avatar {

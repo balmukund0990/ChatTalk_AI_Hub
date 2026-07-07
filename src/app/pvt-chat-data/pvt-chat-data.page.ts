@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonList, IonItem, IonLabel, IonIcon, IonContent, IonTextarea, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonBackButton, IonAvatar, IonNote, IonFooter } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { pin, send, videocam } from 'ionicons/icons';
+import { addCircleOutline, send, videocam } from 'ionicons/icons';
+import { DataService } from '../services/data-service';
+import { Subscription } from 'rxjs';
 
 interface ChatMessage {
   text: string;
@@ -24,6 +26,10 @@ export class PvtChatDataPage implements OnInit {
 
   // Bound variable tracking user text input state
   newMessageText: string = '';
+  private dataService = inject(DataService);
+  selectedItem: any = null;
+  private sub!: Subscription;
+  userChatTitle = '';
 
   // Seeded mock backend message logs structure
   messages: ChatMessage[] = [
@@ -35,10 +41,20 @@ export class PvtChatDataPage implements OnInit {
   ];
 
   constructor() {
-    addIcons({ send, pin, videocam })
+    addIcons({ send, addCircleOutline, videocam })
   }
 
   ngOnInit() {
+    console.log('Private chat data ngoninit loaded...');
+    this.sub = this.dataService.selectedItem$.subscribe(item => {
+      this.selectedItem = item;
+      this.setCamelCaseLtr(this.selectedItem.name);
+    });
+  }
+
+  setCamelCaseLtr(str: any) {
+    this.userChatTitle = str.replace(/[^a-zA-Z0-9]+(.)/g, (_: any, chr: any) => chr.toUpperCase())
+      .replace(/^./, (match: any) => match.toUpperCase());
   }
 
   // Executed on Send icon interactions

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonIcon, IonContent, IonSearchbar, IonItem, IonLabel, IonList, IonAvatar, IonNote, IonRefresher, IonRefresherContent } from '@ionic/angular/standalone';
-import { camera, chatbox, chevronDown } from 'ionicons/icons';
+import { arrowDownOutline, camera, chatbox, chevronDown } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Camera } from '@capacitor/camera';
 import { Database } from '../services/database';
+import { DataService } from '../services/data-service';
 
 interface Item {
   id: number,
@@ -25,17 +26,11 @@ export class Tab1Page implements OnInit {
   users: Item[] = [
     { id: 1, name: 'chat user name', category: '+91 0000000000' }
   ];
-
-  // public items: Item[] = [
-  //   { id: 1, name: 'Apple', category: 'Fruit' },
-  //   { id: 2, name: 'Banana', category: 'Fruit' },
-  //   { id: 3, name: 'Carrot', category: 'Vegetable' },
-  //   { id: 4, name: 'Donut', category: 'Pastry' }
-  // ];
   public filteredItems: Item[] = [];
+  private dataService = inject(DataService);
 
   constructor(public router: Router, public dbService: Database) {
-    addIcons({ camera, chatbox, chevronDown});
+    addIcons({ camera, chatbox, arrowDownOutline });
   }
   ngOnInit(): void {
     this.filteredItems = [...this.users];
@@ -98,7 +93,8 @@ export class Tab1Page implements OnInit {
 
   getSeptChatData(chatData: any) {
     console.log('Seprate chat data entry..');
-    this.router.navigate(['/pvt-chat-data'])
+    this.router.navigate(['/pvt-chat-data']);
+    this.dataService.setSelectedItem(chatData);
 
   }
 
