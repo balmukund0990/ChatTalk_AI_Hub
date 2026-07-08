@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonList, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton } from '@ionic/angular/standalone';
 import { Contacts } from '@capacitor-community/contacts';
 import { Database } from '../services/database';
-import { Subscription } from 'rxjs';
-import { DataService } from '../services/data-service';
+import { LoadingController } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-contactlist',
@@ -19,10 +18,27 @@ export class ContactlistPage implements OnInit {
   users: any[] = [];
   submittedValue = {};
 
-  constructor(public dbService: Database) { }
+  constructor(public dbService: Database, public loadingCtrl: LoadingController) { }
 
   async ngOnInit() {
     await this.loadContacts();
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Loading secure data...',
+      duration: 2000, // Optional fallback timeout auto-dismisses after 5s
+      spinner: 'bubbles',
+    });
+
+    // Display the spinner overlay
+    await loading.present();
+
+    // Simulating an asynchronous HTTP operation
+    setTimeout(async () => {
+      // Dismiss the spinner overlay programmatically
+      await loading.dismiss();
+    }, 2400);
   }
 
   async loadContacts() {
@@ -42,6 +58,7 @@ export class ContactlistPage implements OnInit {
 
         this.contactList = result.contacts;
         console.log('Fetched contacts successfully:', this.contactList);
+        this.showLoading();
       } else {
         console.warn('Permission to access contacts was denied.');
       }
