@@ -1,0 +1,21 @@
+{
+  "name": "chattalk_ai_hub",
+  "version": "1.0.0",
+  "description": "Chat with AI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balmukund0990/ChatTalk_AI_Hub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/balmukund0990/ChatTalk_AI_Hub/issues"
+  },
+  "homepage": "https://github.com/balmukund0990/ChatTalk_AI_Hub#readme"
+}
